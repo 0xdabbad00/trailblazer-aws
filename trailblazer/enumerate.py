@@ -19,15 +19,11 @@ def enumerate_services(config, services, dry_run=False):
 
     for service in services:
 
-        if len(session.get_available_regions(service)) == 0:
-            log.debug('Skipping {} - No regions exist for this service'.format(service))
-            continue
-
         # Create a service client
         log.info('Creating {} client...'.format(service))
 
-        # Grab a region to use for the calls.  This should be us-west-2
-        region = session.get_available_regions(service)[-1]
+        # Set region to use for the calls.
+        region = 'us-east-1'
 
         # Set the user-agent if specified in the config
         if config.get('user_agent', None):
@@ -88,7 +84,10 @@ def enumerate_services(config, services, dry_run=False):
                         	make_api_call(service, new_func, region, func_params)
 
                     except ClientError as e:
-                        log.debug(e)
+                        if "ValidationError" in str(e):
+                            log.error(e)
+                        else:
+                            log.debug(e)
                     except boto3.exceptions.S3UploadFailedError as e:
                         log.debug(e)
                     except TypeError as e:

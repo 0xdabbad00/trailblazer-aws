@@ -19,11 +19,25 @@ def enumerate_services(config, services, dry_run=False):
 
     for service in services:
 
+        if service == 's3control':
+            log.info('Skipping {} - End-points do not seem to be working'.format(service))
+            continue
+
+        if len(session.get_available_regions(service)) == 0:
+            if service in ['budgets', 'ce', 'chime', 'cloudfront', 'iam', 'importexport', 'organizations', 'route53', 'sts', 'waf']:
+                region = 'us-east-1'
+            else:
+                log.info('Skipping {} - No regions exist for this service'.format(service))
+                continue
+        else:
+            if 'us-east-1' in session.get_available_regions(service):
+                region = 'us-east-1'
+            else:
+                log.info('Skipping {} - Only available in {}'.format(service, session.get_available_regions(service)))
+                continue
+
         # Create a service client
         log.info('Creating {} client...'.format(service))
-
-        # Set region to use for the calls.
-        region = 'us-east-1'
 
         # Set the user-agent if specified in the config
         if config.get('user_agent', None):

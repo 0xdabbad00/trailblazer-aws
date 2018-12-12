@@ -498,7 +498,7 @@ def make_api_call(service, function, region, func_params):
             time.sleep(.1)
             return
         elif function[0] == 'update_access_key':
-            function[1](AccessKeyId='test', Status='test', **func_params)
+            function[1](AccessKeyId='a'*16, Status='Active', **func_params)
             time.sleep(.1)
             return
         elif function[0] == 'update_assume_role_policy':
@@ -514,7 +514,7 @@ def make_api_call(service, function, region, func_params):
             time.sleep(.1)
             return
         elif function[0] == 'update_open_id_connect_provider_thumbprint':
-            function[1](OpenIDConnectProviderArn=arn, ThumbprintList='test', **func_params)
+            function[1](OpenIDConnectProviderArn=arn, ThumbprintList=['a'*40], **func_params)
             time.sleep(.1)
             return
         elif function[0] == 'update_role':
@@ -526,7 +526,7 @@ def make_api_call(service, function, region, func_params):
             time.sleep(.1)
             return
         elif function[0] == 'update_saml_provider':
-            function[1](SAMLMetadataDocument='test', SAMLProviderArn=arn, **func_params)
+            function[1](SAMLMetadataDocument='a'*1000, SAMLProviderArn=arn, **func_params)
             time.sleep(.1)
             return
         elif function[0] == 'update_server_certificate':
@@ -534,15 +534,15 @@ def make_api_call(service, function, region, func_params):
             time.sleep(.1)
             return
         elif function[0] == 'update_service_specific_credential':
-            function[1](ServiceSpecificCredentialId='test', Status='test', **func_params)
+            function[1](ServiceSpecificCredentialId='a'*20, Status='Active', **func_params)
             time.sleep(.1)
             return
         elif function[0] == 'update_signing_certificate':
-            function[1](CertificateId='test', Status='test', **func_params)
+            function[1](CertificateId='a'*24, Status='Active', **func_params)
             time.sleep(.1)
             return
         elif function[0] == 'update_ssh_public_key':
-            function[1](SSHPublicKeyId='test', UserName='test', Status='test', **func_params)
+            function[1](SSHPublicKeyId='a'*20, UserName='test', Status='Active', **func_params)
             time.sleep(.1)
             return
         elif function[0] == 'update_user':
@@ -559,6 +559,359 @@ def make_api_call(service, function, region, func_params):
             return
         elif function[0] == 'upload_ssh_public_key':
             function[1](UserName='test', SSHPublicKeyBody='test', **func_params)
+            time.sleep(.1)
+            return
+    elif service == 'cloudformation':
+        if function[0] == 'cancel_update_stack':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'continue_update_rollback':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_change_set':
+            function[1](StackName='test', ChangeSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_stack':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_stack_instances':
+            function[1](Regions='test', StackSetName='test', accounts='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_stack_set':
+            function[1](StackSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_change_set':
+            function[1](changeSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_stack':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_stack_instances':
+            function[1](Regions='test', StackSetName='test', accounts='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_stack_set':
+            function[1](StackSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_change_set':
+            function[1](changeSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_stack_drift_detection_status':
+            function[1](stackDriftDetectionId='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_stack_events':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_stack_instance':
+            function[1](StackSetName='test', StackInstanceRegion='test', StackInstanceAccount='012345678901', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_stack_resource':
+            function[1](StackName='test', LogicalResourceId='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_stack_resource_drifts':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_stack_set':
+            function[1](StackSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_stack_set_operation':
+            function[1](StackSetName='test', OperationId='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'detect_stack_drift':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'detect_stack_resource_drift':
+            function[1](StackName='test', LogicalResourceId='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'execute_change_set':
+            function[1](ChangeSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'get_stack_policy':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'list_change_sets':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'list_imports':
+            function[1](ExportName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'list_stack_instances':
+            function[1](StackSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'list_stack_resources':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'list_stack_set_operation_results':
+            function[1](StackSetName='test', OperationId='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'list_stack_set_operations':
+            function[1](StackSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'set_stack_policy':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'signal_resource':
+            function[1](StackName='test', LogicalResourceId='test', UniqueId='test', Status='SUCCESS', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'stop_stack_set_operation':
+            function[1](StackSetName='test', OperationId='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_stack':
+            function[1](StackName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_stack_instances':
+            function[1](Regions='test', StackSetName='test', Accounts=['012345678901'], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_stack_set':
+            function[1](StackSetName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_termination_protection':
+            function[1](StackName='test', EnableTerminationProtection='test', **func_params)
+            time.sleep(.1)
+            return
+    elif service == 'elasticbeanstalk':
+        if function[0] == 'apply_environment_managed_action':
+            function[1](ActionId='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'check_dns_availability':
+            function[1](CNAMEPrefix='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_application':
+            function[1](ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_application_version':
+            function[1](VersionLabel='test', ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_configuration_template':
+            function[1](TemplateName='test', ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_environment':
+            function[1](ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_platform_version':
+            function[1](PlatformVersion='test', PlatformName='test', PlatformDefinitionBundle={'test':'test'}, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_application':
+            function[1](ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_application_version':
+            function[1](VersionLabel='test', ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_configuration_template':
+            function[1](TemplateName='test', ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_environment_configuration':
+            function[1](EnvironmentName='test', ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'describe_configuration_settings':
+            function[1](ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'list_tags_for_resource':
+            function[1](ResourceArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'request_environment_info':
+            function[1](InfoType='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'retrieve_environment_info':
+            function[1](InfoType='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_application':
+            function[1](ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_application_resource_lifecycle':
+            function[1](ResourceLifecycleConfig={'test':'test'}, ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_application_version':
+            function[1](VersionLabel='test', ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_configuration_template':
+            function[1](TemplateName='test', ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'update_tags_for_resource':
+            function[1](ResourceArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'validate_configuration_settings':
+            function[1](ApplicationName='test', **func_params)
+            time.sleep(.1)
+            return
+    elif service == 'elbv2':
+        if function[0] == 'add_listener_certificates':
+            function[1](ListenerArn=arn, Certificates=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'add_tags':
+            function[1](ResourceArns=[arn], Tags=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_listener':
+            function[1](LoadBalancerArn=arn, Protocol='test', Port='1', DefaultActions=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'create_rule':
+            function[1](ListenerArn=arn, Conditions=[{'a':'test'}], Priority='test', Actions=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_listener':
+            function[1](ListenerArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_load_balancer':
+            function[1](LoadBalancerArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_rule':
+            function[1](RuleArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'delete_target_group':
+            function[1](TargetGroupArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'deregister_targets':
+            function[1](TargetGroupArn=arn, Targets=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'modify_listener':
+            function[1](ListenerArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'modify_load_balancer_attributes':
+            function[1](LoadBalancerArn=arn, Attributes=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'modify_rule':
+            function[1](RuleArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'modify_target_group':
+            function[1](TargetGroupArn=arn, Attributes=['test'], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'modify_target_group_attributes':
+            function[1](TargetGroupArn=arn, Attributes=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'register_targets':
+            function[1](TargetGroupArn=arn, Targets=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'remove_listener_certificates':
+            function[1](ListenerArn=arn, Certificates=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'remove_tags':
+            function[1](ResourceArns=arn, TagKeys=['test'], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'set_ip_address_type':
+            function[1](LoadBalancerArn=arn, IpAddressType='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'set_rule_priorities':
+            function[1](RulePriorities=[{'a':'test'}], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'set_security_groups':
+            function[1](LoadBalancerArn=arn, SecurityGroups=['test'], **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'set_subnets':
+            function[1](LoadBalancerArn=arn, **func_params)
+            time.sleep(.1)
+            return
+    elif service == 'ses':
+        if function[0] == 'send_bounce':
+            function[1](BouncedRecipientInfoList=[{'a':'test'}], OriginalMessageId='test', BounceSender='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'send_bulk_templated_email':
+            function[1](Template='test', Destinations=[{'a':'test'}], Source='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'send_email':
+            function[1](Destination=[{'a':'test'}], Source='test', Message={'subject':'test'}, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'send_raw_email':
+            function[1](RawMessage={'a':'test'}, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'send_templated_email':
+            function[1](Template={'a':'test'}, Destination={'a':'test'}, TemplateData={'a':'test'}, Source='test', **func_params)
+            time.sleep(.1)
+            return
+    elif service == 'sts':
+        if function[0] == 'assume_role':
+            function[1](RoleArn=arn, RoleSessionName='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'assume_role_with_saml':
+            function[1](SAMLAssertion='test', RoleArn='arn:aws:iam::123456789012:role/test', PrincipalArn=arn, **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'assume_role_with_web_identity':
+            function[1](RoleArn='arn:aws:iam::123456789012:role/test', RoleSessionName='test', WebIdentityToken='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'decode_authorization_message':
+            function[1](EncodedMessage='test', **func_params)
+            time.sleep(.1)
+            return
+        elif function[0] == 'get_federation_token':
+            function[1](Name='test', **func_params)
             time.sleep(.1)
             return
 

@@ -20,10 +20,15 @@ def snake_case_to_CamelCase(snake_str):
 
     # Fix special cases
     CamelCase = CamelCase.replace('Id', 'ID')
+    CamelCase = CamelCase.replace('IDentity', 'Identity')
+    CamelCase = CamelCase.replace('Csv', 'CSV')
     CamelCase = CamelCase.replace('Ssh', 'SSH')
     CamelCase = CamelCase.replace('Saml', 'SAML')
     CamelCase = CamelCase.replace('Mfa', 'MFA')
+    # Fix the one function that doesn't follow this rule
+    CamelCase = CamelCase.replace('SetUserPoolMFAConfig', 'SetUserPoolMfaConfig')
     CamelCase = CamelCase.replace('Ml', 'ML')
+    CamelCase = CamelCase.replace('Ui', 'UI')
 
     return CamelCase
 
@@ -76,6 +81,39 @@ def get_value_for_shape(shape, shape_name, param_name, service_json):
 
     if param_name == 'PolicyArn':
         return 'arn:aws:iam::aws:policy/SecurityAudit'
+    elif param_name == 'CertificateArn':
+        return 'arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012'
+    elif shape_name == 'DomainNameString':
+        return 'example.com'
+    elif param_name == 'CertificateAuthorityArn':
+        return 'arn:aws:acm-pca:us-east-1:123456789012:certificate-authority/12345678-1234-1234-1234-123456789012'
+    elif shape_name == 'InstanceType':
+        return 't2.micro'
+    elif shape_name == 'EnvironmentName':
+        return 'test'
+    elif shape_name == 'UserArn':
+        return 'arn:aws:iam::123456789012:user/David'
+    elif shape_name == 'EnvironmentId':
+        return 'testtest'
+    elif param_name == 'DirectoryArn':
+        return 'arn:aws:clouddirectory:us-west-2:123456789012:directory/ARIqk1HD-UjdtmcIrJHEvPI'
+    elif param_name == 'SchemaArn':
+        return 'arn:aws:clouddirectory:us-west-2:12345678910:schema/development/cognito'
+    elif shape_name == 'EnvironmentId':
+        return 'arn:aws:cloudhsm:eu-central-1:315160724404:hapg-8e3be050'
+    elif shape_name == 'NonEmptyString':
+        return 'test'
+    elif param_name == 'ProjectName':
+        return 'test'
+    elif shape_name == 'CommentId':
+        return 'ff30b348EXAMPLEb9aa670f'
+    elif shape_name == 'PullRequestId':
+        return '8'
+    elif shape_name == 'RetentionPeriodInDays':
+        return '30'
+    elif shape_name == 'DocumentClassifierArn':
+        return 'arn:aws:comprehend:us-east-1:123456789012:document-classifier/test'
+    
     elif param_name == 'PredictEndpoint':
         return 'https://realtime.machinelearning.us-east-1.amazonaws.com' 
     elif shape_name == 'arnType':
@@ -104,6 +142,8 @@ def get_value_for_shape(shape, shape_name, param_name, service_json):
         return "abc@example.com"
     if pattern == "arn:aws.*:kinesis:.*:\\d{12}:stream/.*":
         return "arn:aws:kinesis:us-east-1:123456789012:stream/example-stream-name"
+    if pattern == '[\\u0020-\\uD7FF\\uE000-\\uFFFD\\uD800\\uDC00-\\uDBFF\\uDFFF\\r\\n\\t]*':
+        return 'df-00627471SOVYZEXAMPLE'
 
     max_length = shape.get('max', 100)
     min_length = shape.get('min', 10) + 1
@@ -237,7 +277,11 @@ def enumerate_services(config, services, dry_run=False):
                         	make_api_call(service, new_func, region, func_params)
 
                     except ClientError as e:
-                        if "AccessDenied" in str(e) or "UnauthorizedOperation" in str(e):
+                        if ('AccessDenied' in str(e) or 
+                            'UnauthorizedOperation' in str(e) or 
+                            'ForbiddenException' in str(e) or
+                            'NotAuthorizedException' in str(e)):
+                            # TODO I need to check if these really all are the same as AccessDenied
                             log.debug(e)
                         else:
                             log.error(e)

@@ -21,14 +21,28 @@ def snake_case_to_CamelCase(snake_str):
     # Fix special cases
     CamelCase = CamelCase.replace('Id', 'ID')
     CamelCase = CamelCase.replace('IDentity', 'Identity')
+    CamelCase = CamelCase.replace('IDentities', 'Identities')
+    CamelCase = CamelCase.replace('GetID', 'GetId')
+    CamelCase = CamelCase.replace('GetOpenIDToken', 'GetOpenIdToken')
+    CamelCase = CamelCase.replace('GetOpenIDTokenForDeveloperIdentity', 'GetOpenIdTokenForDeveloperIdentity')
+    
+    
     CamelCase = CamelCase.replace('Csv', 'CSV')
     CamelCase = CamelCase.replace('Ssh', 'SSH')
     CamelCase = CamelCase.replace('Saml', 'SAML')
     CamelCase = CamelCase.replace('Mfa', 'MFA')
-    # Fix the one function that doesn't follow this rule
+    # Fix the function that doen't follow this rule
     CamelCase = CamelCase.replace('SetUserPoolMFAConfig', 'SetUserPoolMfaConfig')
+    CamelCase = CamelCase.replace('GetUserPoolMFAConfig', 'GetUserPoolMfaConfig')
+    
     CamelCase = CamelCase.replace('Ml', 'ML')
     CamelCase = CamelCase.replace('Ui', 'UI')
+    CamelCase = CamelCase.replace('Avs', 'AVS')
+    CamelCase = CamelCase.replace('Url', 'URL')
+    CamelCase = CamelCase.replace('CreateEnvironmentEc2', 'CreateEnvironmentEC2')
+    CamelCase = CamelCase.replace('ResetPersonalPin', 'ResetPersonalPIN')
+    
+    
 
     return CamelCase
 
@@ -96,9 +110,9 @@ def get_value_for_shape(shape, shape_name, param_name, service_json):
     elif shape_name == 'EnvironmentId':
         return 'testtest'
     elif param_name == 'DirectoryArn':
-        return 'arn:aws:clouddirectory:us-west-2:123456789012:directory/ARIqk1HD-UjdtmcIrJHEvPI'
-    elif param_name == 'SchemaArn':
-        return 'arn:aws:clouddirectory:us-west-2:12345678910:schema/development/cognito'
+        return 'arn:aws:clouddirectory:us-east-1:123456789012:directory/ARIqk1HD-UjdtmcIrJHEvPI'
+    elif param_name == 'SchemaArn' or param_name == 'DevelopmentSchemaArn' or param_name == 'PublishedSchemaArn':
+        return 'arn:aws:clouddirectory:us-east-1:12345678910:schema/development/cognito'
     elif shape_name == 'EnvironmentId':
         return 'arn:aws:cloudhsm:eu-central-1:315160724404:hapg-8e3be050'
     elif shape_name == 'NonEmptyString':
@@ -113,6 +127,10 @@ def get_value_for_shape(shape, shape_name, param_name, service_json):
         return '30'
     elif shape_name == 'DocumentClassifierArn':
         return 'arn:aws:comprehend:us-east-1:123456789012:document-classifier/test'
+    elif param_name == 'ResourceArn':
+        return 'arn:aws:iam::123456789012:user/David'
+
+
     
     elif param_name == 'PredictEndpoint':
         return 'https://realtime.machinelearning.us-east-1.amazonaws.com' 
@@ -144,6 +162,10 @@ def get_value_for_shape(shape, shape_name, param_name, service_json):
         return "arn:aws:kinesis:us-east-1:123456789012:stream/example-stream-name"
     if pattern == '[\\u0020-\\uD7FF\\uE000-\\uFFFD\\uD800\\uDC00-\\uDBFF\\uDFFF\\r\\n\\t]*':
         return 'df-00627471SOVYZEXAMPLE'
+    if pattern == 'arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\\-]*:[0-9]{12}:hsm-[0-9a-f]{8}':
+        return 'arn:aws:cloudhsm:us-east-1:123456789012:hsm-00000000'
+    if pattern == 'arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\\-]*:[0-9]{12}:hapg-[0-9a-f]{8}':
+        reeturn 'arn:aws:cloudhsm:us-east-1:123456789012:hapg-00000000'
 
     max_length = shape.get('max', 100)
     min_length = shape.get('min', 10) + 1

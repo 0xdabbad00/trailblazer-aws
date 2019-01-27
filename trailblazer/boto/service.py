@@ -18,7 +18,7 @@ def get_service_json_files(config):
 
     for service_dir in os.listdir(root_dir):
         if os.path.isdir(os.path.join(root_dir,service_dir)):
-            date_dirs = os.listdir(os.path.join(root_dir,service_dir))
+            date_dirs = sorted(os.listdir(os.path.join(root_dir,service_dir)))
             date_dir = None
             if len(date_dirs) > 1:
                 date_dir = date_dirs[-1]

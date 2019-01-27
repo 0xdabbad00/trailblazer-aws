@@ -15,34 +15,234 @@ from trailblazer.boto.sts import get_assume_role_session
 
 
 def snake_case_to_CamelCase(snake_str):
+    """ This converts names like get_id to GetId. """
+    # TODO: There must be a better way of doing this.
+    # The get_boto_functions call just returns snake case'd names though.
+
     components = snake_str.split('_')
     CamelCase = ''.join(x.title() for x in components)
 
     # Fix special cases
+    #CamelCase = CamelCase.replace('Acl', 'ACL')
+    CamelCase = CamelCase.replace('Avs', 'AVS')
+    CamelCase = CamelCase.replace('Bgp', 'BGP')
+    CamelCase = CamelCase.replace('Csv', 'CSV')
+    CamelCase = CamelCase.replace('Db', 'DB')
+    CamelCase = CamelCase.replace('Drt', 'DRT')
     CamelCase = CamelCase.replace('Id', 'ID')
+    CamelCase = CamelCase.replace('IDFormat', 'IdFormat')
     CamelCase = CamelCase.replace('IDentity', 'Identity')
     CamelCase = CamelCase.replace('IDentities', 'Identities')
-    CamelCase = CamelCase.replace('GetID', 'GetId')
-    CamelCase = CamelCase.replace('GetOpenIDToken', 'GetOpenIdToken')
-    CamelCase = CamelCase.replace('GetOpenIDTokenForDeveloperIdentity', 'GetOpenIdTokenForDeveloperIdentity')
+    CamelCase = CamelCase.replace('IDentifier', 'Identifier')
     
-    
-    CamelCase = CamelCase.replace('Csv', 'CSV')
-    CamelCase = CamelCase.replace('Ssh', 'SSH')
-    CamelCase = CamelCase.replace('Saml', 'SAML')
+    #CamelCase = CamelCase.replace('Ip', 'IP')
+    CamelCase = CamelCase.replace('Iscsi', 'iSCSI')
     CamelCase = CamelCase.replace('Mfa', 'MFA')
-    # Fix the function that doen't follow this rule
-    CamelCase = CamelCase.replace('SetUserPoolMFAConfig', 'SetUserPoolMfaConfig')
-    CamelCase = CamelCase.replace('GetUserPoolMFAConfig', 'GetUserPoolMfaConfig')
-    
     CamelCase = CamelCase.replace('Ml', 'ML')
+    CamelCase = CamelCase.replace('Nfs', 'NFS')
+    CamelCase = CamelCase.replace('Ota', 'OTA')
+    CamelCase = CamelCase.replace('Saml', 'SAML')
+    CamelCase = CamelCase.replace('Smb', 'SMB')
+    CamelCase = CamelCase.replace('Sms', 'SMS')
+    CamelCase = CamelCase.replace('Ssh', 'SSH')
+    CamelCase = CamelCase.replace('Ssl', 'SSL')
     CamelCase = CamelCase.replace('Ui', 'UI')
-    CamelCase = CamelCase.replace('Avs', 'AVS')
     CamelCase = CamelCase.replace('Url', 'URL')
-    CamelCase = CamelCase.replace('CreateEnvironmentEc2', 'CreateEnvironmentEC2')
-    CamelCase = CamelCase.replace('ResetPersonalPin', 'ResetPersonalPIN')
+    CamelCase = CamelCase.replace('Vtl', 'VTL')
     
-    
+    if CamelCase == 'CreateMicrosoftAd':
+        return 'CreateMicrosoftAD'
+    if CamelCase == 'DescribeAggregateIDFormat':
+        return 'DescribeAggregateIdFormat'
+    if CamelCase == 'CreateEnvironmentEc2':
+        return 'CreateEnvironmentEC2'
+    if CamelCase == 'ResetPersonalPin':
+        return 'ResetPersonalPIN'
+    if CamelCase == 'SetUserPoolMFAConfig':
+        return 'SetUserPoolMfaConfig'
+    if CamelCase == 'GetUserPoolMFAConfig':
+        return 'GetUserPoolMfaConfig'
+    if CamelCase == 'GetID':
+        return 'GetId'
+    if CamelCase == 'GetOpenIDToken':
+        return 'GetOpenIdToken'
+    if CamelCase == 'GetOpenIDTokenForDeveloperIdentity':
+        return 'GetOpenIdTokenForDeveloperIdentity'
+    if CamelCase == 'ListDistributionsByWebACLID':
+        return 'ListDistributionsByWebACLId'
+    if CamelCase == 'DeleteSSHPublicKey':
+        return 'DeleteSshPublicKey'
+    if CamelCase == 'ImportSSHPublicKey':
+        return 'ImportSshPublicKey'
+    if CamelCase == 'EnableVolumeIo':
+        return 'EnableVolumeIO'
+    if CamelCase == 'GetDownloadURLForLayer':
+        return 'GetDownloadUrlForLayer'
+    if CamelCase == 'CheckDnsAvailability':
+        return 'CheckDNSAvailability'
+    if CamelCase == 'SwapEnvironmentCnames':
+        return 'SwapEnvironmentCNAMEs'
+    if CamelCase == 'CreateLbCookieStickinessPolicy':
+        return 'CreateLBCookieStickinessPolicy'
+    if CamelCase == 'DescribeEc2InstanceLimits':
+        return 'DescribeEC2InstanceLimits'
+    if CamelCase == 'GetGameSessionLogURL':
+        return 'GetGameSessionLogUrl'
+    if CamelCase == 'DeleteCaCertificate':
+        return 'DeleteCACertificate'
+    if CamelCase == 'DescribeCaCertificate':
+        return 'DescribeCACertificate'
+    if CamelCase == 'ListCaCertificates':
+        return 'ListCACertificates'
+    if CamelCase == 'ListCertificatesByCa':
+        return 'ListCertificatesByCA'
+    if CamelCase == 'RegisterCaCertificate':
+        return 'RegisterCACertificate'
+    if CamelCase == 'UpdateCaCertificate':
+        return 'UpdateCACertificate'
+    if CamelCase == 'GetHlsStreamingSessionURL':
+        return 'GetHLSStreamingSessionURL'
+    if CamelCase == 'CreateDataSourceFromRds':
+        return 'CreateDataSourceFromRDS'
+    if CamelCase == 'CreateAdditionalAssignmentsForHIT':
+        return 'CreateAdditionalAssignmentsForHIT'
+    if CamelCase == 'CreateHit':
+        return 'CreateHIT'
+    if CamelCase == 'CreateHitType':
+        return 'CreateHITType'
+    if CamelCase == 'CreateHitWithHitType':
+        return 'CreateHITWithHITType'
+    if CamelCase == 'DeleteHit':
+        return 'DeleteHIT'
+    if CamelCase == 'GetHit':
+        return 'GetHIT'
+    if CamelCase == 'ListAssignmentsForHit':
+        return 'ListAssignmentsForHIT'
+    if CamelCase == 'ListHits':
+        return 'ListHITs'
+    if CamelCase == 'ListHitsForQualificationType':
+        return 'ListHITsForQualificationType'
+    if CamelCase == 'ListReviewPolicyResultsForHit':
+        return 'ListReviewPolicyResultsForHIT'
+    if CamelCase == 'ListReviewableHits':
+        return 'ListReviewableHITs'
+    if CamelCase == 'UpdateExpirationForHit':
+        return 'UpdateExpirationForHIT'
+    if CamelCase == 'UpdateHitReviewStatus':
+        return 'UpdateHITReviewStatus'
+    if CamelCase == 'UpdateHitTypeOfHit':
+        return 'UpdateHITTypeOfHIT'
+    if CamelCase == 'DisableAwsServiceAccess':
+        return 'DisableAWSServiceAccess'
+    if CamelCase == 'EnableAwsServiceAccess':
+        return 'EnableAWSServiceAccess'
+    if CamelCase == 'ListAwsServiceAccessForOrganization':
+        return 'ListAWSServiceAccessForOrganization'
+    if CamelCase == 'AssociateVpcWithHostedZone':
+        return 'AssociateVPCWithHostedZone'
+    if CamelCase == 'CreateVpcAssociationAuthorization':
+        return 'CreateVPCAssociationAuthorization'
+    if CamelCase == 'DeleteVpcAssociationAuthorization':
+        return 'DeleteVPCAssociationAuthorization'
+    if CamelCase == 'DisassociateVpcFromHostedZone':
+        return 'DisassociateVPCFromHostedZone'
+    if CamelCase == 'ListVpcAssociationAuthorizations':
+        return 'ListVPCAssociationAuthorizations'
+    if CamelCase == 'TestDnsAnswer':
+        return 'TestDNSAnswer'
+    if CamelCase == 'RenderUITemplate':
+        return 'RenderUiTemplate'
+    if CamelCase == 'ListSecretVersionIDs':
+        return 'ListSecretVersionIds'
+    if CamelCase == 'DisableAwsOrganizationsAccess':
+        return 'DisableAWSOrganizationsAccess'
+    if CamelCase == 'EnableAwsOrganizationsAccess':
+        return 'EnableAWSOrganizationsAccess'
+    if CamelCase == 'GetAwsOrganizationsAccessStatus':
+        return 'GetAWSOrganizationsAccessStatus'
+    if CamelCase == 'GetQueueURL':
+        return 'GetQueueUrl'
+
+    if CamelCase == 'ListDistributionsByWebAclID':
+        return 'ListDistributionsByWebACLId'
+    if CamelCase == 'CreateIpSet':
+        return 'CreateIPSet'
+    if CamelCase == 'DeleteIpSet':
+        return 'DeleteIPSet'
+    if CamelCase == 'GetIpSet':
+        return 'GetIPSet'
+    if CamelCase == 'ListIpSets':
+        return 'ListIPSets'
+    if CamelCase == 'UpdateIpSet':
+        return 'UpdateIPSet'
+    if CamelCase == 'CreateAdditionalAssignmentsForHit':
+        return 'CreateAdditionalAssignmentsForHIT'
+    if CamelCase == 'DeregisterRdsDBInstance':
+        return 'DeregisterRdsDbInstance'
+    if CamelCase == 'DescribeRdsDBInstances':
+        return 'DescribeRdsDbInstances'
+    if CamelCase == 'RegisterRdsDBInstance':
+        return 'RegisterRdsDbInstance'
+    if CamelCase == 'UpdateRdsDBInstance':
+        return 'UpdateRdsDbInstance'
+    if CamelCase == 'DeleteSMSChannel':
+        return 'DeleteSmsChannel'
+    if CamelCase == 'GetSMSChannel':
+        return 'GetSmsChannel'
+    if CamelCase == 'UpdateSMSChannel':
+        return 'UpdateSmsChannel'
+    if CamelCase == 'DescribeClusterDBRevisions':
+        return 'DescribeClusterDbRevisions'
+    if CamelCase == 'ModifyClusterDBRevision':
+        return 'ModifyClusterDbRevision'
+    if CamelCase == 'CreateIpSet':
+        return 'CreateIPSet'
+    if CamelCase == 'CreateWebAcl':
+        return 'CreateWebACL'
+    if CamelCase == 'DeleteIpSet':
+        return 'DeleteIPSet'
+    if CamelCase == 'DeleteWebAcl':
+        return 'DeleteWebACL'
+    if CamelCase == 'GetIpSet':
+        return 'GetIPSet'
+    if CamelCase == 'GetWebAcl':
+        return 'GetWebACL'
+    if CamelCase == 'ListIpSets':
+        return 'ListIPSets'
+    if CamelCase == 'ListWebAcls':
+        return 'ListWebACLs'
+    if CamelCase == 'UpdateIpSet':
+        return 'UpdateIPSet'
+    if CamelCase == 'UpdateWebAcl':
+        return 'UpdateWebACL'
+    if CamelCase == 'AssociateWebAcl':
+        return 'AssociateWebACL'
+    if CamelCase == 'CreateIpSet':
+        return 'CreateIPSet'
+    if CamelCase == 'CreateWebAcl':
+        return 'CreateWebACL'
+    if CamelCase == 'DeleteIpSet':
+        return 'DeleteIPSet'
+    if CamelCase == 'DeleteWebAcl':
+        return 'DeleteWebACL'
+    if CamelCase == 'DisassociateWebAcl':
+        return 'DisassociateWebACL'
+    if CamelCase == 'GetIpSet':
+        return 'GetIPSet'
+    if CamelCase == 'GetWebAcl':
+        return 'GetWebACL'
+    if CamelCase == 'GetWebAclForResource':
+        return 'GetWebACLForResource'
+    if CamelCase == 'ListIpSets':
+        return 'ListIPSets'
+    if CamelCase == 'ListResourcesForWebAcl':
+        return 'ListResourcesForWebACL'
+    if CamelCase == 'ListWebAcls':
+        return 'ListWebACLs'
+    if CamelCase == 'UpdateIpSet':
+        return 'UpdateIPSet'
+    if CamelCase == 'UpdateWebAcl':
+        return 'UpdateWebACL'
 
     return CamelCase
 

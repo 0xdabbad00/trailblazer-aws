@@ -165,7 +165,11 @@ def get_value_for_shape(shape, shape_name, param_name, service_json):
     if pattern == 'arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\\-]*:[0-9]{12}:hsm-[0-9a-f]{8}':
         return 'arn:aws:cloudhsm:us-east-1:123456789012:hsm-00000000'
     if pattern == 'arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\\-]*:[0-9]{12}:hapg-[0-9a-f]{8}':
-        reeturn 'arn:aws:cloudhsm:us-east-1:123456789012:hapg-00000000'
+        return 'arn:aws:cloudhsm:us-east-1:123456789012:hapg-00000000'
+    if pattern == '^[a-zA-Z0-9]{1,50}$':
+        return 'test'
+    if pattern == '^\\S+{1,256}$':
+        return 'test'
 
     max_length = shape.get('max', 100)
     min_length = shape.get('min', 10) + 1
@@ -174,8 +178,12 @@ def get_value_for_shape(shape, shape_name, param_name, service_json):
         max_length = 1024
     x = Xeger(limit=max_length)
     pattern = pattern.replace('.*', '[a-z]*')
-    log.debug('xeger using pattern: \"{}\" for {}'.format(pattern, shape_name))
-    value = x.xeger(pattern)
+    
+    try:
+        value = x.xeger(pattern)
+    except Exception as e:
+        log.error('xeger crashed using pattern: \"{}\" for {}'.format(pattern, shape_name))
+        raise e
 
     if value == '':
         value = 'a'
@@ -275,7 +283,7 @@ def enumerate_services(config, services, dry_run=False):
                         function_name_CamelCase = snake_case_to_CamelCase(function[0])
                         function_json = service_json['operations'].get(function_name_CamelCase, {})
                         if function_json == {}:
-                            log.error('Could not find {} in service json'.format(function_name_CamelCase))
+                            log.error('Could not find {} in service json {}'.format(function_name_CamelCase, service_file_json[service]))
                             # TODO Raise this as an error
                         elif 'input' in function_json:
                             func_shape_name = function_json['input']['shape']
